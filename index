@@ -1,0 +1,44 @@
+<meta charset="UTF-8">
+
+<!-- объявляем ввод -->
+Date start:
+<input type='date' id='date-start'></input>
+Date end:
+<input type='date' id='date-end'></input></br>
+<select id='select-risk'>
+	<option value='0'>Select</option>
+	<option value='CapitalCons_CreditRisk_Group'>Кредитный риск</option>
+	<option value='CapitalCons_OperRisk_Group'>Операционный риск</option>
+	<option value='CapitalCons_IRRTB_Group'>ПРТК</option>
+	<option value='CapitalCons_FXRisk_Group'>Валютный риск</option>
+	<option value='CapitalCons_IRR_Group'>ПР</option>
+	<option value='CapitalCons_LiqRisk_Group'>Риск ликвидности</option>
+</select>
+<!-- Кнопочка для запуска функции sendRequest()(она описана ниже) -->
+<button onclick='sendRequest()'>Send</button>
+
+<!-- Сюда запишем ответ сервера когда функция sendRequest() отработает -->
+<div id='demo'></div>
+
+<script>
+	var selectRisk = document.getElementById('select-risk');
+	// Селектор для старта
+	var getStart = document.getElementById('date-start');
+	// Селектор для энда
+	var getEnd = document.getElementById('date-end');
+	
+	
+	
+	
+	function sendRequest() {
+		// Считываем какие даты выбраны
+		let dateStart = getStart.value;
+		let dateEnd = getEnd.value
+		
+		// Высылаем
+		$.get('pupa.php?person=' + selectRisk.value + '&start=' + dateStart + '&end=' + dateEnd, function(data) {
+			$("#demo").html(data);
+		});
+	}
+	
+</script>
